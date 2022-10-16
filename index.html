@@ -1,0 +1,69 @@
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<center>
+<h1>Combining Visual and Descriptive Information for House Price Estimation</h1>
+<h3>Sarvesh Patil and Pranjal Ranjan</h3>
+<h3>Fall 2022, ECE 5554: Computer Vision Project Proposal</h3>
+<h3>Virginia Tech</h3>
+</center><hr /><center>
+<h3>Problem Statement</h3>
+</center>
+<p>The task is to estimate the price of a house given a combination of its visual and descriptive information. The visual information is in the form of - images of the frontal view of the house, images of the interior of the house, as well as aerial images of the house and its surrounding areas. The descriptive information attributes such as latitude, longitude, no. of bedrooms, no. of bathrooms, and area of the house.</p>
+<p>Framing this as a research study, the question that is being explored by this project is about the effect of visual information on the regression task of estimating house prices that is usually tackled by just considering numerical and categorical features. A deeper analysis will be done by performing comparisons of performance between different ways of providing this visual information to the models as well.</p>
+<hr /><center>
+<h3>Datasets</h3>
+</center>
+<p>We will use three datasets for our experiments:</p>
+<ol>
+<li>New York Houses Dataset [2] - A dataset of 10,900 houses with:
+<ul>
+<li>Images: Frontal View</li>
+<li>Features: Price, Latitude, Longitude, No. of Bedrooms, No. of Bathrooms, and House area</li>
+</ul>
+</li>
+<li>California Houses Dataset [1] - A dataset of 535 houses with:
+<ul>
+<li>Images: Frontal View, Bedroom, Bathroom, Kitchen</li>
+<li>Features: Price, Zip code, No. of Bedrooms, No. of Bathrooms, and House area</li>
+</ul>
+</li>
+<li>Custom Satellite Image Dataset - A custom dataset that will be compiled by us for testing the effect of using satellite imagery for the task of house price estimation. This will be in concurrence with the New York Houses Dataset, which will be stitched together on the basis of the attributes of longitude and latitude. We will use Google's Static Maps API to extract the images of the houses and their neighborhoods.&nbsp;</li>
+</ol>
+<hr /><center>
+<h3>Our Approach</h3>
+</center>
+<p>We shall treat this task as a regression problem, with the target variable as the price of the house and the input features as the various types of images of houses, and their descriptive information.</p>
+<p>We will follow a three-stage approach, in each of which we will train a model with an increasing amount of information. The three stages are as follows:</p>
+<ol>
+<li>Descriptive Features Only</li>
+<li>Descriptive Features + Frontal Images</li>
+<li>Descriptive Features + Frontal Images + More Visual Information
+<ol style="list-style-type: lower-alpha;">
+<li>Satellites Images (for New York Houses Dataset)</li>
+<li>Interior Images - bedroom, bathroom, kitchen (for California Houses Dataset)</li>
+</ol>
+</li>
+</ol>
+<hr /><center>
+<h3>Experiment</h3>
+</center>
+<p>We will use three different architectures for the various stages of the regression task of house price estimation.</p>
+<ol>
+<li>Stage 1: We will use a multilayer perceptron model which will be trained on the descriptive house features only.</li>
+<li>Stage 2: We will use a dual-input neural network, with one input processing the frontal images, and the other input processing the descriptive features. Both inputs will be processed by different branches of the model, and the outputs of those branches will be concatenated together to form an intermediary output. This will then be processed using a final neural network.</li>
+<li>Stage 3: A model similar to Stage 2 will be used, but in this case, we will stitch the frontal image with either the satellite image for the New York Houses Dataset, or the interior images for the California Houses Dataset. We will feed this combined image to one branch and the rest of the process will be the same as Stage 2.</li>
+</ol>
+<p>For each stage, we will use metrics such as MAPE (Mean Average Percentage Error) and MSE (Mean Squared Error) to represent the performance of the models. We will then compare all these models to get an idea of how visual information is impacting the task.</p>
+<hr /><center>
+<h3>Expected Results</h3>
+</center>
+<p>The expectation is that visual information of all kinds should augment models for the task at hand as compared to just using descriptive features. This is because we are increasing the relevant information for the models to process with each successive stage. The question that would be answered from the experiments would be how each different type of visual input is effective in improving the performance which can be gauged by the difference in the metrics of each stage.</p>
+<center>
+<h3>Bibliography</h3>
+</center>
+<ul>
+<li>[1] Eman Ahmed, Mohamed Moustafa: "House price estimation from visual and textual features", 2016; <a href="http://arxiv.org/abs/1609.08399">arXiv:1609.08399</a>.</li>
+<li>[2] Markus Rosenfeld : "Transfer Learning with EfficientNet Image Regression in Keras - Using Custom Data in Keras", 2020; <a href="https://rosenfelder.ai/keras-regression-efficient-net/">https://rosenfelder.ai/keras-regression-efficient-net/</a></li>
+<li>[3] Adrian Rosebrock : "Keras, Regression and CNNs", 2019; <a href="https://pyimagesearch.com/2019/01/28/keras-regression-and-cnns/">https://pyimagesearch.com/2019/01/28/keras-regression-and-cnns/</a></li>
+</ul>
+<p><br /><br /><br /></p>
